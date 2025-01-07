@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useReducer } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   Switch,
-  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
@@ -17,6 +16,7 @@ import { Feather } from "@expo/vector-icons";
 const RegisterProviderScreen = ({ navigation }) => {
   const formRef = useRef({
     nomEntreprise: "",
+    adresse: "",
     email: "",
     telephone: "",
     password: "",
@@ -24,23 +24,22 @@ const RegisterProviderScreen = ({ navigation }) => {
     description: "",
     categorie: "",
     siret: "",
-    tarifHoraire: "",
+    horaires: "",
     accepteCaution: false,
-    heureOuverture: "06:00",
-    heureFermeture: "17:00",
+    tarifHoraire: "",
     moyensPaiement: {
       carte: false,
       especes: false,
       cheque: false,
     },
+    heureOuverture: "06:00",
+    heureFermeture: "17:00",
   });
 
-  const [errors, setErrors] = useState({});
-  const [currentStep, setCurrentStep] = useState(1);
+  const [, forceUpdate] = useState({});
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   const CATEGORIES = [
     { label: "Coiffure", value: "coiffure", icon: "scissors" },
@@ -59,56 +58,29 @@ const RegisterProviderScreen = ({ navigation }) => {
     { id: "cheque", label: "Chèque", icon: "file-text" },
   ];
 
-  const validateField = useCallback((fieldName, value) => {
-    let error = "";
-    switch (fieldName) {
-      case "nomEntreprise":
-        if (value.length < 2)
-          error = "Le nom doit contenir au moins 2 caractères";
-        break;
-      case "email":
-        if (!/\S+@\S+\.\S+/.test(value)) error = "Email invalide";
-        break;
-      case "telephone":
-        if (!/^\d{10}$/.test(value)) error = "Numéro de téléphone invalide";
-        break;
-      case "password":
-        if (value.length < 8)
-          error = "Le mot de passe doit contenir au moins 8 caractères";
-        break;
-      case "confirmPassword":
-        if (value !== formRef.current.password)
-          error = "Les mots de passe ne correspondent pas";
-        break;
-      case "siret":
-        if (!/^\d{14}$/.test(value)) error = "Numéro SIRET invalide";
-        break;
-    }
-    setErrors((prev) => ({ ...prev, [fieldName]: error }));
-    return !error;
-  }, []);
-
   const handleInputChange = useCallback((fieldName, value) => {
     formRef.current[fieldName] = value;
     forceUpdate({});
   }, []);
 
   const handleRegister = useCallback(async () => {
-    setIsLoading(true);
-    let isValid = true;
+    const form = formRef.current;
+    if (
+      !form.nomEntreprise ||
+      !form.adresse ||
+      !form.email ||
+      !form.telephone ||
+      !form.password ||
+      !form.confirmPassword ||
+      !form.categorie ||
+      !form.siret
+    ) {
+      Alert.alert("Erreur", "Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
 
-    Object.keys(formRef.current).forEach((key) => {
-      if (!validateField(key, formRef.current[key])) {
-        isValid = false;
-      }
-    });
-
-    if (!isValid) {
-      setIsLoading(false);
-      Alert.alert(
-        "Erreur",
-        "Veuillez corriger les erreurs dans le formulaire."
-      );
+    if (form.password !== form.confirmPassword) {
+      Alert.alert("Erreur", "Les mots de passe ne correspondent pas.");
       return;
     }
 
@@ -118,8 +90,8 @@ const RegisterProviderScreen = ({ navigation }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           role: "prestataire",
-          ...formRef.current,
-          motDePasse: formRef.current.password,
+          ...form,
+          motDePasse: form.password,
         }),
       });
 
@@ -138,16 +110,15 @@ const RegisterProviderScreen = ({ navigation }) => {
         "Erreur",
         "Impossible de vous inscrire. Veuillez réessayer plus tard."
       );
-    } finally {
-      setIsLoading(false);
     }
-  }, [navigation, validateField]);
+  }, [navigation]);
 
   const FormInput = useCallback(
     ({
       label,
       placeholder,
-      fieldName,
+      value,
+      onChangeText,
       keyboardType = "default",
       secureTextEntry = false,
       multiline = false,
@@ -156,109 +127,110 @@ const RegisterProviderScreen = ({ navigation }) => {
       showPasswordToggle = false,
       showPassword = false,
       onTogglePassword,
-    }) => {
-      const handleChangeText = useCallback(
-        (text) => {
-          handleInputChange(fieldName, text);
-        },
-        [fieldName]
-      );
-
-      const handleBlur = useCallback(() => {
-        validateField(fieldName, formRef.current[fieldName]);
-      }, [fieldName]);
-
-      return (
-        <View className="mb-6">
-          <Text className="text-gray-200 text-base font-medium mb-2">
-            {label} {required && <Text className="text-teal-400">*</Text>}
-          </Text>
-          <View className="relative">
-            {icon && (
-              <View className="absolute left-4 top-3 z-10">
-                <Feather name={icon} size={20} color="#9CA3AF" />
-              </View>
-            )}
-            <TextInput
-              className={`w-full h-12 px-4 ${
-                icon ? "pl-12" : ""
-              } bg-gray-800 border border-gray-700 rounded-lg text-gray-200 text-base ${
-                multiline ? "h-24 py-2" : ""
-              } ${errors[fieldName] ? "border-red-500" : ""}`}
-              placeholder={placeholder}
-              placeholderTextColor="#6B7280"
-              value={formRef.current[fieldName]}
-              onChangeText={handleChangeText}
-              onBlur={handleBlur}
-              keyboardType={keyboardType}
-              secureTextEntry={secureTextEntry && !showPassword}
-              multiline={multiline}
-              autoCapitalize="none"
-              aria-label={label}
-              aria-required={required}
-              aria-invalid={!!errors[fieldName]}
-            />
-            {showPasswordToggle && (
-              <TouchableOpacity
-                className="absolute right-4 top-3"
-                onPress={onTogglePassword}
-              >
-                <Feather
-                  name={showPassword ? "eye-off" : "eye"}
-                  size={20}
-                  color="#9CA3AF"
-                />
-              </TouchableOpacity>
-            )}
-          </View>
-          {errors[fieldName] && (
-            <Text className="text-red-500 text-sm mt-1">
-              {errors[fieldName]}
-            </Text>
+    }) => (
+      <View className="mb-6">
+        <Text className="text-gray-200 text-base font-medium mb-2">
+          {label} {required && <Text className="text-teal-400">*</Text>}
+        </Text>
+        <View className="relative">
+          {icon && (
+            <View className="absolute left-4 top-3 z-10">
+              <Feather name={icon} size={20} color="#9CA3AF" />
+            </View>
+          )}
+          <TextInput
+            className={`w-full h-12 px-4 ${
+              icon ? "pl-12" : ""
+            } bg-gray-800 border border-gray-700 rounded-lg text-gray-200 text-base ${
+              multiline ? "h-24 py-2" : ""
+            }`}
+            placeholder={placeholder}
+            placeholderTextColor="#6B7280"
+            value={value}
+            onChangeText={onChangeText}
+            keyboardType={keyboardType}
+            secureTextEntry={secureTextEntry && !showPassword}
+            multiline={multiline}
+            autoCapitalize="none"
+          />
+          {showPasswordToggle && (
+            <TouchableOpacity
+              className="absolute right-4 top-3"
+              onPress={onTogglePassword}
+            >
+              <Feather
+                name={showPassword ? "eye-off" : "eye"}
+                size={20}
+                color="#9CA3AF"
+              />
+            </TouchableOpacity>
           )}
         </View>
-      );
-    },
-    [errors, handleInputChange, validateField]
+      </View>
+    ),
+    []
   );
 
-  const renderStep = () => {
-    switch (currentStep) {
-      case 1:
-        return (
-          <>
+  return (
+    <View className="flex-1 bg-gray-900">
+      <SafeAreaView className="flex-1">
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          className="flex-1"
+        >
+          <ScrollView
+            contentContainerStyle={{ padding: 24 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <Text className="text-gray-100 text-center text-3xl font-bold mb-8">
+              Inscription Prestataire
+            </Text>
+
             <FormInput
               label="Nom de l'entreprise"
               placeholder="Nom de votre entreprise"
-              fieldName="nomEntreprise"
+              value={formRef.current.nomEntreprise}
+              onChangeText={(value) =>
+                handleInputChange("nomEntreprise", value)
+              }
               icon="briefcase"
               required
             />
+
+            <FormInput
+              label="Adresse"
+              placeholder="Votre adresse complète"
+              value={formRef.current.adresse}
+              onChangeText={(value) => handleInputChange("adresse", value)}
+              icon="map-pin"
+              required
+            />
+
             <FormInput
               label="Email"
               placeholder="votre@email.com"
-              fieldName="email"
+              value={formRef.current.email}
+              onChangeText={(value) => handleInputChange("email", value)}
               keyboardType="email-address"
               icon="mail"
               required
             />
+
             <FormInput
               label="Téléphone"
               placeholder="Votre numéro de téléphone"
-              fieldName="telephone"
+              value={formRef.current.telephone}
+              onChangeText={(value) => handleInputChange("telephone", value)}
               keyboardType="phone-pad"
               icon="phone"
               required
             />
-          </>
-        );
-      case 2:
-        return (
-          <>
+
             <FormInput
               label="Mot de passe"
               placeholder="Votre mot de passe"
-              fieldName="password"
+              value={formRef.current.password}
+              onChangeText={(value) => handleInputChange("password", value)}
               secureTextEntry
               icon="lock"
               required
@@ -266,10 +238,14 @@ const RegisterProviderScreen = ({ navigation }) => {
               showPassword={showPassword}
               onTogglePassword={() => setShowPassword(!showPassword)}
             />
+
             <FormInput
               label="Confirmer le mot de passe"
               placeholder="Confirmez votre mot de passe"
-              fieldName="confirmPassword"
+              value={formRef.current.confirmPassword}
+              onChangeText={(value) =>
+                handleInputChange("confirmPassword", value)
+              }
               secureTextEntry
               icon="lock"
               required
@@ -279,27 +255,7 @@ const RegisterProviderScreen = ({ navigation }) => {
                 setShowConfirmPassword(!showConfirmPassword)
               }
             />
-            <View className="mb-6">
-              <Text className="text-gray-200 text-base font-medium mb-2">
-                Force du mot de passe
-              </Text>
-              <View className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                <View
-                  className="h-full bg-teal-500"
-                  style={{
-                    width: `${Math.min(
-                      100,
-                      formRef.current.password.length * 10
-                    )}%`,
-                  }}
-                />
-              </View>
-            </View>
-          </>
-        );
-      case 3:
-        return (
-          <>
+
             <View className="mb-8">
               <Text className="text-gray-200 text-base font-medium mb-4">
                 Catégorie de service <Text className="text-teal-400">*</Text>
@@ -340,26 +296,26 @@ const RegisterProviderScreen = ({ navigation }) => {
                 ))}
               </View>
             </View>
+
             <FormInput
               label="Numéro SIRET"
               placeholder="Votre numéro SIRET"
-              fieldName="siret"
+              value={formRef.current.siret}
+              onChangeText={(value) => handleInputChange("siret", value)}
               keyboardType="numeric"
               icon="hash"
               required
             />
+
             <FormInput
               label="Description"
               placeholder="Décrivez votre activité..."
-              fieldName="description"
+              value={formRef.current.description}
+              onChangeText={(value) => handleInputChange("description", value)}
               multiline
               icon="file-text"
             />
-          </>
-        );
-      case 4:
-        return (
-          <>
+
             <View className="mb-8">
               <Text className="text-gray-200 text-base font-medium mb-4">
                 Horaires d'ouverture
@@ -399,13 +355,16 @@ const RegisterProviderScreen = ({ navigation }) => {
                 </View>
               </View>
             </View>
+
             <FormInput
               label="Tarif horaire"
               placeholder="Votre tarif horaire (€)"
-              fieldName="tarifHoraire"
+              value={formRef.current.tarifHoraire}
+              onChangeText={(value) => handleInputChange("tarifHoraire", value)}
               keyboardType="numeric"
               icon="dollar-sign"
             />
+
             <View className="flex-row items-center justify-between bg-gray-800 p-4 rounded-lg mb-8 border border-gray-700">
               <View className="flex-1 mr-4">
                 <Text className="text-gray-200 text-base font-medium mb-1">
@@ -426,6 +385,7 @@ const RegisterProviderScreen = ({ navigation }) => {
                 }
               />
             </View>
+
             <View className="mb-8">
               <Text className="text-gray-200 text-base font-medium mb-4">
                 Moyens de paiement acceptés
@@ -468,76 +428,17 @@ const RegisterProviderScreen = ({ navigation }) => {
                 ))}
               </View>
             </View>
-          </>
-        );
-      default:
-        return null;
-    }
-  };
 
-  return (
-    <View className="flex-1 bg-gray-900">
-      <SafeAreaView className="flex-1">
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          className="flex-1"
-        >
-          <ScrollView
-            contentContainerStyle={{ padding: 24 }}
-            showsVerticalScrollIndicator={false}
-          >
-            <Text className="text-gray-100 text-center text-3xl font-bold mb-8">
-              Inscription Prestataire
-            </Text>
-            <View className="flex-row justify-between mb-6">
-              {[1, 2, 3, 4].map((step) => (
-                <View
-                  key={step}
-                  className={`h-2 flex-1 mx-1 rounded-full ${
-                    step <= currentStep ? "bg-teal-500" : "bg-gray-700"
-                  }`}
-                />
-              ))}
-            </View>
-            {renderStep()}
-            <View className="flex-row justify-between mt-6">
-              {currentStep > 1 && (
-                <TouchableOpacity
-                  className="bg-gray-700 rounded-lg p-4 flex-1 mr-2"
-                  onPress={() => setCurrentStep(currentStep - 1)}
-                >
-                  <Text className="text-gray-100 text-center text-lg font-semibold">
-                    Précédent
-                  </Text>
-                </TouchableOpacity>
-              )}
-              {currentStep < 4 && (
-                <TouchableOpacity
-                  className="bg-teal-600 rounded-lg p-4 flex-1 ml-2"
-                  onPress={() => setCurrentStep(currentStep + 1)}
-                >
-                  <Text className="text-gray-100 text-center text-lg font-semibold">
-                    Suivant
-                  </Text>
-                </TouchableOpacity>
-              )}
-              {currentStep === 4 && (
-                <TouchableOpacity
-                  className="bg-teal-600 rounded-lg p-4 flex-1 ml-2"
-                  onPress={handleRegister}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <ActivityIndicator color="#F3F4F6" />
-                  ) : (
-                    <Text className="text-gray-100 text-center text-lg font-semibold">
-                      S'inscrire
-                    </Text>
-                  )}
-                </TouchableOpacity>
-              )}
-            </View>
-            <Text className="text-gray-400 text-center text-xs px-8 leading-5 mt-6">
+            <TouchableOpacity
+              className="bg-teal-600 rounded-lg p-4 shadow-md mb-6"
+              onPress={handleRegister}
+            >
+              <Text className="text-gray-100 text-center text-lg font-semibold">
+                S'inscrire
+              </Text>
+            </TouchableOpacity>
+
+            <Text className="text-gray-400 text-center text-xs px-8 leading-5 mb-4">
               En vous inscrivant, vous acceptez nos conditions d'utilisation et
               notre politique de confidentialité.
             </Text>

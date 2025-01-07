@@ -8,9 +8,9 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  SafeAreaView,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const RegisterClientScreen = ({ navigation }) => {
   const [form, setForm] = useState({
@@ -89,18 +89,16 @@ const RegisterClientScreen = ({ navigation }) => {
     showPasswordToggle,
     onTogglePassword,
   }) => (
-    <View className="mb-4">
-      <Text className="text-gray-700 text-sm font-medium mb-1">{label}</Text>
-      <View className="flex-row items-center border border-gray-300 rounded-lg bg-white">
-        {icon && (
-          <Feather name={icon} size={20} className="ml-3 text-gray-500" />
-        )}
+    <View className="mb-6">
+      <Text className="text-text text-sm font-medium mb-1">{label}</Text>
+      <View className="flex-row items-center border border-border rounded-lg bg-white">
+        <Feather name={icon} size={20} color="#667391" className="ml-4" />
         <TextInput
-          className="flex-1 h-12 px-4 text-gray-800 text-base"
+          className="flex-1 h-[50px] px-4 text-text text-[15px]"
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor="#9CA3AF" // Gray-400
+          placeholderTextColor="#667391"
           secureTextEntry={secureTextEntry && !showPasswordToggle}
           keyboardType={keyboardType}
         />
@@ -109,26 +107,26 @@ const RegisterClientScreen = ({ navigation }) => {
             <Feather
               name={showPasswordToggle ? "eye" : "eye-off"}
               size={20}
-              className="text-gray-500"
+              color="#667391"
             />
           </TouchableOpacity>
         )}
       </View>
-      {error && <Text className="text-red-500 text-sm mt-1">{error}</Text>}
+      {error && <Text className="text-error text-xs mt-1">{error}</Text>}
     </View>
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-100">
+    <SafeAreaView className="flex-1 bg-background">
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         className="flex-1"
       >
         <ScrollView
-          contentContainerStyle={{ paddingHorizontal: 20, paddingVertical: 10 }}
+          contentContainerStyle={{ flexGrow: 1, padding: 24 }}
           showsVerticalScrollIndicator={false}
         >
-          <Text className="text-2xl font-bold text-gray-800 text-center mb-6">
+          <Text className="text-text text-center text-[28px] font-bold mb-8">
             Inscription Client
           </Text>
 
@@ -188,15 +186,15 @@ const RegisterClientScreen = ({ navigation }) => {
           />
 
           <TouchableOpacity
-            className="bg-indigo-500 rounded-lg py-3 mt-6"
+            className="bg-primary rounded-lg p-4 shadow mt-8"
             onPress={handleRegister}
           >
-            <Text className="text-center text-white text-lg font-bold">
+            <Text className="text-white text-center text-base font-semibold">
               S'inscrire
             </Text>
           </TouchableOpacity>
 
-          <Text className="text-center text-gray-500 text-sm mt-4">
+          <Text className="text-textLight text-center mt-4 px-8 leading-[18px] text-xs">
             En vous inscrivant, vous acceptez nos conditions d'utilisation et
             notre politique de confidentialité.
           </Text>
