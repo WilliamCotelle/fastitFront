@@ -1,0 +1,537 @@
+{
+  "providers": [
+    {
+      "id": "1",
+      "name": "Marie Durand",
+      "image": "https://picsum.photos/800/600",
+      "rating": 4.8,
+      "reviews": 127,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Coiffure", "Maquillage"],
+      "distance": "2.5 km"
+    },
+    {
+      "id": "2",
+      "name": "John Doe",
+      "image": "https://picsum.photos/800/601",
+      "rating": 4.6,
+      "reviews": 89,
+      "availability": "Disponible demain",
+      "services": ["Massage", "Bien-être"],
+      "distance": "3.1 km"
+    },
+    {
+      "id": "3",
+      "name": "Sophie Martin",
+      "image": "https://picsum.photos/800/602",
+      "rating": 4.7,
+      "reviews": 104,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Plomberie", "Ménage"],
+      "distance": "1.8 km"
+    },
+    {
+      "id": "4",
+      "name": "Eric Dupont",
+      "image": "https://picsum.photos/800/603",
+      "rating": 4.9,
+      "reviews": 154,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Cours particuliers", "Jardinage"],
+      "distance": "5.2 km"
+    },
+    {
+      "id": "5",
+      "name": "Chloé Bernard",
+      "image": "https://picsum.photos/800/604",
+      "rating": 4.3,
+      "reviews": 78,
+      "availability": "Disponible demain",
+      "services": ["Livraison", "Cuisine"],
+      "distance": "4.0 km"
+    },
+    {
+      "id": "6",
+      "name": "Paul Morel",
+      "image": "https://picsum.photos/800/605",
+      "rating": 4.5,
+      "reviews": 95,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Plomberie", "Électricité"],
+      "distance": "3.0 km"
+    },
+    {
+      "id": "7",
+      "name": "Emma Leroy",
+      "image": "https://picsum.photos/800/606",
+      "rating": 4.4,
+      "reviews": 65,
+      "availability": "Disponible demain",
+      "services": ["Massage", "Bien-être"],
+      "distance": "2.2 km"
+    },
+    {
+      "id": "8",
+      "name": "Lucas Fontaine",
+      "image": "https://picsum.photos/800/607",
+      "rating": 4.2,
+      "reviews": 110,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Jardinage", "Ménage"],
+      "distance": "4.5 km"
+    },
+    {
+      "id": "9",
+      "name": "Isabelle Charpentier",
+      "image": "https://picsum.photos/800/608",
+      "rating": 4.8,
+      "reviews": 150,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Coiffure", "Maquillage"],
+      "distance": "1.9 km"
+    },
+    {
+      "id": "10",
+      "name": "Nathan Lambert",
+      "image": "https://picsum.photos/800/609",
+      "rating": 4.5,
+      "reviews": 82,
+      "availability": "Disponible demain",
+      "services": ["Livraison", "Cours particuliers"],
+      "distance": "6.0 km"
+    },
+    {
+      "id": "11",
+      "name": "Julie Rousseau",
+      "image": "https://picsum.photos/800/610",
+      "rating": 4.7,
+      "reviews": 120,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Cuisine", "Massage"],
+      "distance": "2.8 km"
+    },
+    {
+      "id": "12",
+      "name": "Antoine Lefevre",
+      "image": "https://picsum.photos/800/611",
+      "rating": 4.6,
+      "reviews": 98,
+      "availability": "Disponible demain",
+      "services": ["Électricité", "Plomberie"],
+      "distance": "3.7 km"
+    },
+    {
+      "id": "13",
+      "name": "Camille Garnier",
+      "image": "https://picsum.photos/800/612",
+      "rating": 4.9,
+      "reviews": 145,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Jardinage", "Livraison"],
+      "distance": "2.4 km"
+    },
+    {
+      "id": "14",
+      "name": "Vincent Robert",
+      "image": "https://picsum.photos/800/613",
+      "rating": 4.3,
+      "reviews": 70,
+      "availability": "Disponible demain",
+      "services": ["Ménage", "Cuisine"],
+      "distance": "5.5 km"
+    },
+    {
+      "id": "15",
+      "name": "Sophie Marchand",
+      "image": "https://picsum.photos/800/614",
+      "rating": 4.7,
+      "reviews": 135,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Coiffure", "Massage"],
+      "distance": "3.3 km"
+    },
+    {
+      "id": "16",
+      "name": "Alexandre Proust",
+      "image": "https://picsum.photos/800/615",
+      "rating": 4.4,
+      "reviews": 88,
+      "availability": "Disponible demain",
+      "services": ["Électricité", "Jardinage"],
+      "distance": "4.2 km"
+    },
+    {
+      "id": "17",
+      "name": "Elisa Perrin",
+      "image": "https://picsum.photos/800/616",
+      "rating": 4.8,
+      "reviews": 143,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Maquillage", "Cours particuliers"],
+      "distance": "2.7 km"
+    },
+    {
+      "id": "18",
+      "name": "Louis Girard",
+      "image": "https://picsum.photos/800/617",
+      "rating": 4.6,
+      "reviews": 115,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Cuisine", "Plomberie"],
+      "distance": "3.9 km"
+    },
+    {
+      "id": "19",
+      "name": "Manon Dupuis",
+      "image": "https://picsum.photos/800/618",
+      "rating": 4.5,
+      "reviews": 108,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Livraison", "Ménage"],
+      "distance": "4.4 km"
+    },
+    {
+      "id": "20",
+      "name": "Victor Noël",
+      "image": "https://picsum.photos/800/619",
+      "rating": 4.7,
+      "reviews": 121,
+      "availability": "Disponible demain",
+      "services": ["Coiffure", "Bien-être"],
+      "distance": "3.6 km"
+    },
+    {
+      "id": "21",
+      "name": "Charlotte Renard",
+      "image": "https://picsum.photos/800/620",
+      "rating": 4.8,
+      "reviews": 149,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Cours particuliers", "Maquillage"],
+      "distance": "1.5 km"
+    },
+    {
+      "id": "22",
+      "name": "Lucas Vidal",
+      "image": "https://picsum.photos/800/621",
+      "rating": 4.6,
+      "reviews": 102,
+      "availability": "Disponible demain",
+      "services": ["Massage", "Jardinage"],
+      "distance": "5.0 km"
+    },
+    {
+      "id": "23",
+      "name": "Emma Roche",
+      "image": "https://picsum.photos/800/622",
+      "rating": 4.9,
+      "reviews": 158,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Électricité", "Cuisine"],
+      "distance": "2.1 km"
+    },
+    {
+      "id": "24",
+      "name": "Hugo Barret",
+      "image": "https://picsum.photos/800/623",
+      "rating": 4.2,
+      "reviews": 77,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Ménage", "Livraison"],
+      "distance": "3.8 km"
+    },
+    {
+      "id": "25",
+      "name": "Sarah Lemaitre",
+      "image": "https://picsum.photos/800/624",
+      "rating": 4.7,
+      "reviews": 137,
+      "availability": "Disponible demain",
+      "services": ["Plomberie", "Coiffure"],
+      "distance": "4.6 km"
+    },
+    {
+      "id": "26",
+      "name": "Maxime Charlier",
+      "image": "https://picsum.photos/800/625",
+      "rating": 4.4,
+      "reviews": 94,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Jardinage", "Cours particuliers"],
+      "distance": "3.2 km"
+    },
+    {
+      "id": "27",
+      "name": "Léa Dumont",
+      "image": "https://picsum.photos/800/626",
+      "rating": 4.8,
+      "reviews": 140,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Massage", "Maquillage"],
+      "distance": "2.0 km"
+    },
+    {
+      "id": "28",
+      "name": "Thomas Delacroix",
+      "image": "https://picsum.photos/800/627",
+      "rating": 4.3,
+      "reviews": 87,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Plomberie", "Ménage"],
+      "distance": "5.3 km"
+    },
+    {
+      "id": "29",
+      "name": "Alice Moreau",
+      "image": "https://picsum.photos/800/628",
+      "rating": 4.9,
+      "reviews": 155,
+      "availability": "Disponible demain",
+      "services": ["Livraison", "Cuisine"],
+      "distance": "3.7 km"
+    },
+    {
+      "id": "30",
+      "name": "Julien Marchal",
+      "image": "https://picsum.photos/800/629",
+      "rating": 4.6,
+      "reviews": 99,
+      "availability": "Disponible aujourd'hui",
+      "services": ["Électricité", "Jardinage"],
+      "distance": "4.1 km"
+    }
+  ],
+
+  "services": [
+    {
+      "id": "1",
+      "providerId": "1",
+      "name": "Coupe Femme",
+      "price": 40,
+      "duration": "1h",
+      "description": "Une coupe moderne et adaptée à vos envies.",
+      "travel_fee": 5,
+      "deposit": 10
+    },
+    {
+      "id": "2",
+      "providerId": "1",
+      "name": "Coloration",
+      "price": 60,
+      "duration": "1h30",
+      "description": "Coloration professionnelle pour un rendu parfait.",
+      "travel_fee": 10,
+      "deposit": 20
+    },
+    {
+      "id": "3",
+      "providerId": "1",
+      "name": "Brushing",
+      "price": 30,
+      "duration": "30 min",
+      "description": "Brushing pour une mise en forme impeccable.",
+      "travel_fee": 5,
+      "deposit": 5
+    },
+    {
+      "id": "4",
+      "providerId": "2",
+      "name": "Massage Relaxant",
+      "price": 60,
+      "duration": "1h",
+      "description": "Massage pour relâcher les tensions et se détendre.",
+      "travel_fee": 15,
+      "deposit": 20
+    },
+    {
+      "id": "5",
+      "providerId": "2",
+      "name": "Massage aux Pierres Chaudes",
+      "price": 80,
+      "duration": "1h30",
+      "description": "Massage profond avec des pierres volcaniques chauffées.",
+      "travel_fee": 20,
+      "deposit": 25
+    },
+    {
+      "id": "6",
+      "providerId": "3",
+      "name": "Réparation de Fuite",
+      "price": 50,
+      "duration": "45 min",
+      "description": "Service rapide pour stopper les fuites d'eau.",
+      "travel_fee": 10,
+      "deposit": 15
+    },
+    {
+      "id": "7",
+      "providerId": "3",
+      "name": "Installation Chauffe-Eau",
+      "price": 200,
+      "duration": "3h",
+      "description": "Installation professionnelle de chauffe-eau.",
+      "travel_fee": 20,
+      "deposit": 50
+    },
+    {
+      "id": "8",
+      "providerId": "4",
+      "name": "Entretien de Jardin",
+      "price": 50,
+      "duration": "1h30",
+      "description": "Service d'entretien complet pour votre jardin.",
+      "travel_fee": 10,
+      "deposit": 15
+    },
+    {
+      "id": "9",
+      "providerId": "5",
+      "name": "Livraison à Domicile",
+      "price": 10,
+      "duration": "30 min",
+      "description": "Livraison rapide et fiable à votre domicile.",
+      "travel_fee": 5,
+      "deposit": 5
+    },
+    {
+      "id": "10",
+      "providerId": "6",
+      "name": "Réparation Électrique",
+      "price": 60,
+      "duration": "1h",
+      "description": "Intervention rapide pour vos pannes électriques.",
+      "travel_fee": 15,
+      "deposit": 10
+    },
+    {
+      "id": "11",
+      "providerId": "7",
+      "name": "Massage Thaïlandais",
+      "price": 75,
+      "duration": "1h",
+      "description": "Massage traditionnel pour une détente complète.",
+      "travel_fee": 20,
+      "deposit": 30
+    },
+    {
+      "id": "12",
+      "providerId": "8",
+      "name": "Aménagement Paysager",
+      "price": 120,
+      "duration": "2h",
+      "description": "Création d'un espace extérieur harmonieux.",
+      "travel_fee": 25,
+      "deposit": 40
+    },
+    {
+      "id": "13",
+      "providerId": "8",
+      "name": "Tonte de Pelouse",
+      "price": 30,
+      "duration": "1h",
+      "description": "Entretien rapide et soigné de votre pelouse.",
+      "travel_fee": 10,
+      "deposit": 5
+    },
+    {
+      "id": "14",
+      "providerId": "9",
+      "name": "Coiffure Mariage",
+      "price": 100,
+      "duration": "2h",
+      "description": "Coiffure spéciale pour le jour de votre mariage.",
+      "travel_fee": 15,
+      "deposit": 50
+    },
+    {
+      "id": "15",
+      "providerId": "10",
+      "name": "Cours de Mathématiques",
+      "price": 40,
+      "duration": "1h",
+      "description": "Soutien scolaire pour améliorer vos compétences.",
+      "travel_fee": 5,
+      "deposit": 10
+    },
+    {
+      "id": "16",
+      "providerId": "11",
+      "name": "Repas Gourmet à Domicile",
+      "price": 150,
+      "duration": "3h",
+      "description": "Un repas haut de gamme préparé chez vous.",
+      "travel_fee": 30,
+      "deposit": 50
+    },
+    {
+      "id": "17",
+      "providerId": "12",
+      "name": "Réparation de Prises",
+      "price": 45,
+      "duration": "45 min",
+      "description": "Réparation ou remplacement de prises électriques.",
+      "travel_fee": 10,
+      "deposit": 10
+    },
+    {
+      "id": "18",
+      "providerId": "13",
+      "name": "Entretien Espaces Verts",
+      "price": 60,
+      "duration": "1h30",
+      "description": "Service complet pour vos espaces verts.",
+      "travel_fee": 20,
+      "deposit": 20
+    },
+    {
+      "id": "19",
+      "providerId": "14",
+      "name": "Ménage Complet",
+      "price": 50,
+      "duration": "2h",
+      "description": "Nettoyage approfondi de votre domicile.",
+      "travel_fee": 10,
+      "deposit": 15
+    },
+    {
+      "id": "20",
+      "providerId": "15",
+      "name": "Soins Capillaires",
+      "price": 45,
+      "duration": "1h",
+      "description": "Soin professionnel pour des cheveux éclatants.",
+      "travel_fee": 10,
+      "deposit": 10
+    },
+    {
+      "id": "21",
+      "providerId": "16",
+      "name": "Diagnostic Électrique",
+      "price": 70,
+      "duration": "1h",
+      "description": "Analyse complète de votre système électrique.",
+      "travel_fee": 15,
+      "deposit": 20
+    },
+    {
+      "id": "22",
+      "providerId": "17",
+      "name": "Maquillage Professionnel",
+      "price": 60,
+      "duration": "1h",
+      "description": "Maquillage personnalisé pour toutes occasions.",
+      "travel_fee": 15,
+      "deposit": 20
+    },
+    {
+      "id": "23",
+      "providerId": "18",
+      "name": "Réparation de Plomberie",
+      "price": 55,
+      "duration": "1h",
+      "description": "Service rapide pour tous vos problèmes de plomberie.",
+      "travel_fee": 15,
+      "deposit": 15
+    }
+  ]
+}
